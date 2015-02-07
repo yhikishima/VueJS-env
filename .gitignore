@@ -1,0 +1,11 @@
+build/
+node_modules/
+.idea/
+*.iml
+npm-debug.log
+*.sublime-workspace
+IE8.Win7.For.MacVirtualBox.part1.sfx
+.DS_Store
+.sass-cache/
+assets/scss/var/_sprite.scss
+assets/layouts/partials/module/

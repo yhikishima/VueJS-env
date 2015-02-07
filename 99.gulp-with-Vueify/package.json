@@ -1,0 +1,10 @@
+{
+  "repository": {},
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-util": "^3.0.3",
+    "insert-css": "^0.2.0",
+    "vue": "^0.11.5",
+    "vueify": "^1.1.0"
+  }
+}
