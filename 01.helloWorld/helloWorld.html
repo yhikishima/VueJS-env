@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello, World!</title>
+    <script src="../js/lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model="message">
+      <div>{{message}}</div>
+    </div>
+    <script>
+    // vmインスタンスの初期化
+    var vm = new Vue({
+      el: '#app', data: {
+        message: ""
+      }
+    });
+    </script>
+    </body>
+</html>
