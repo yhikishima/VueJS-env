@@ -1,15 +1,5 @@
 <style lang="stylus">
-.sample
-    width 280px
-    border 1px solid #eee
-
-    .title
-        font-weight bold
-        font-size 24px
-
-    .body
-        padding 8px 0
-        text-align center
+@import './src/stylus/extends/sample'
 </style>
 
 <template>

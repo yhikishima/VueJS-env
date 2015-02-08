@@ -3,7 +3,11 @@ var ect   = require('gulp-ect');
 var connect = require('gulp-connect');
 var runSequence = require('run-sequence');
 var browserify = require('gulp-browserify');
+var load = require('gulp-load-plugins');
 
+//---------------------
+// タスクの定義
+//---------------------
 // 簡易サーバー
 gulp.task('connect', function() {
   return connect.server({
@@ -13,9 +17,17 @@ gulp.task('connect', function() {
   });
 });
 
+// 自動更新
+gulp.task("reload", function() {
+  gulp.src([
+    'dist/{,**/}*'
+    ])
+  .pipe(connect.reload());
+});
+
 // ect
 gulp.task('ect', function(){
-  gulp.src('src/**/*.ect')
+  gulp.src('src/{,**/}*.ect')
   .pipe(ect({
     data: function (file, cb) {
       cb({
@@ -29,17 +41,34 @@ gulp.task('ect', function(){
 // .jsファイルと.vueファイルをwatch
 gulp.task('watch', function() {
   gulp.watch(
-    ['src/**/*.js', 'src/components/*.vue'], ['browserify'],
-    ['src/*.ect', 'src/**/*.ect'], ['ect']
-    );
+    ['src/js/{,**/}*.js', 'src/js/{,**/}*.vue', 'src/stylus/{,**/}*.styl'],
+    ['browserify']
+  );
+
+  gulp.watch([
+    'src/{,**/}*.ect'
+    ],['ect']
+  );
+
+  gulp.watch([
+    'dist/{,**/}*'
+    ],['reload']
+  );
 });
 
 // browserifyのタスクのtransformにdebowerifyとvueifyを指定する
 gulp.task('browserify', function() {
   gulp.src('src/js/main.js')
-    .pipe(browserify({transform: ["debowerify", "vueify"]}))
+    .pipe(browserify({transform: [
+      "debowerify",
+      "vueify"
+    ]}))
     .pipe(gulp.dest('dist/js'));
 });
+
+//---------------------
+// タスクの実行
+//---------------------
 
 // 開発用
 gulp.task('serve', [
@@ -51,9 +80,4 @@ gulp.task('serve', [
     'browserify',
     'watch'
   );
-});
-
-// watchして変更があったらビルドを実行するタスクの定義
-gulp.task('default', function(){
-    runSequence('browserify', 'ect' , 'watch');
 });
