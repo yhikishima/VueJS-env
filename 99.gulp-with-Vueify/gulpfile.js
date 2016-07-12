@@ -1,16 +1,13 @@
 var gulp  = require('gulp');
-var ect   = require('gulp-ect');
-var connect = require('gulp-connect');
 var runSequence = require('run-sequence');
-var browserify = require('gulp-browserify');
-var load = require('gulp-load-plugins');
+var $ = require('gulp-load-plugins')();
 
 //---------------------
 // タスクの定義
 //---------------------
 // 簡易サーバー
 gulp.task('connect', function() {
-  return connect.server({
+  return $.connect.server({
     port: 3000,      // ポート番号を設定
     root: 'dist/',   // ルートディレクトリの場所を指定
     livereload: true // ライブリロードを有効にする
@@ -22,13 +19,13 @@ gulp.task("reload", function() {
   gulp.src([
     'dist/{,**/}*'
     ])
-  .pipe(connect.reload());
+  .pipe($.connect.reload());
 });
 
 // ect
 gulp.task('ect', function(){
   gulp.src('src/{,**/}*.ect')
-  .pipe(ect({
+  .pipe($.ect({
     data: function (file, cb) {
       cb({
         filename: file,
@@ -59,7 +56,7 @@ gulp.task('watch', function() {
 // browserifyのタスクのtransformにdebowerifyとvueifyを指定する
 gulp.task('browserify', function() {
   gulp.src('src/js/main.js')
-    .pipe(browserify({transform: [
+    .pipe($.browserify({transform: [
       "debowerify",
       "vueify"
     ]}))
