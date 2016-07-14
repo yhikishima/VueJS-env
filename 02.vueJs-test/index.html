@@ -4,11 +4,45 @@
     <meta charset="UTF-8">
     <title>Vuejs test</title>
   </head>
+  <style>
+    [v-cloak] {display: none}
+  </style>
   <body>
-    <div id="demo">
-      <p>{{message}}</p>
-      <input v-model="message">
-    </div>
+    <section class="section" id="search" v-cloak>
+      <h2>インクリメンタルサーチ</h2>
+      <input type="search" placeholder="Search" v-model="searchText">
+      <ul>
+        <li v-repeat="people | filterBy searchText">{{firstName}} {{lastName}}
+      </ul>
+    </section>
+
+    <section class="section" id="bind" v-cloak>
+      <h2>双方向データバインディング</h2>
+      <input type="text" v-model="name">
+      <div>Hello {{name}}！ | {{fName}}</div>
+    </section>
+
+    <section class="section" id="click" v-cloak>
+      <h2>クリックターゲット</h2>
+      <p>{{name}}</p>
+      <button v-on="click:changeName">change</button>
+    </section>
+
+    <section class="section">
+      <h2>テンプレート</h2>
+      <p id="template" v-cloak></p>
+    </section>
+
+    <section class="section">
+      <h2>ログイン</h2>
+      <div id="login" v-cloak></div>
+    </section>
+
+    <section class="section">
+      <h2>繰り返し</h2>
+      <ul id="repeat"></ul>
+    </section>
+
 
     <script src="../js/lib/vue.js"></script>
     <script src="index.js"></script>
